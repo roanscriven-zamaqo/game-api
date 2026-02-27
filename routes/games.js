@@ -69,4 +69,18 @@ function updateGame(req, res, next){
   }
 }
 
+router.delete('/:id', function(req, res, next){
+  connection.query(
+    `DELETE FROM games
+      WHERE id = ?`, 
+    [req.params.id],
+    queryResults
+  )
+
+  function queryResults(err, results, fields){
+    if (err) return next(err); 
+    return res.sendStatus(200);  
+  }
+});
+
 module.exports = router;
